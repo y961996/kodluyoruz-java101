@@ -8,17 +8,27 @@ public class MayinTarlasi{
   // Burada ki metotları private yap
 
   public MayinTarlasi(int row, int column){
-    this.scanner = new Scanner();
+    this.scanner = new Scanner(System.in);
 
     this.tarla = new String[row][column];
     this.mayinSayisi = row * column / 4;
+
+    initializeTarla();
+    mayinTarlasiniEkranaYazdir(true);
   }
 
   public void run(){
     System.out.println("Mayin Tarlasi Oyununa Hosgeldiniz !");
-    mayinTarlasiniEkranaYazdir();
-    int[] satirSutun = getInput();
-    chechkCoordinate(satirSutun[0], satirSutun[1]);
+    while(!oyunBittimi()){
+      mayinTarlasiniEkranaYazdir(false);
+      int[] satirSutun = getInput();
+      chechkCoordinate(satirSutun[0], satirSutun[1]);
+    }
+
+    if(oyunuKazandımı()){
+      System.out.println("Tebrikler, oyunu kazandiniz.");
+      mayinTarlasiniEkranaYazdir(true);
+    }
   }
 
   public int[] getInput(){
@@ -33,11 +43,23 @@ public class MayinTarlasi{
     return satirSutun;
   }
 
-  public void initializeTarla(){}
+  public void initializeTarla(){
 
-  public boolean chechkCoordinate(int satir, int sutun){return false;}
+  }
 
-  public void mayinTarlasiniEkranaYazdir(){}
+  public boolean chechkCoordinate(int satir, int sutun){
+    return false;
+  }
 
-  public boolean oyunBittimi(){return false;}
+  public void mayinTarlasiniEkranaYazdir(boolean mayinlariGoster){
+
+  }
+
+  public boolean oyunBittimi(){
+    return false;
+  }
+
+  public boolean oyunuKazandımı(){
+    return false;
+  }
 }
