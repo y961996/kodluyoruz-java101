@@ -25,7 +25,7 @@ public class MayinTarlasi{
       chechkCoordinate(satirSutun[0], satirSutun[1]);
     }
 
-    if(oyunuKazandımı()){
+    if(oyunuKazandimi()){
       System.out.println("Tebrikler, oyunu kazandiniz.");
       mayinTarlasiniEkranaYazdir(true);
     }
@@ -59,7 +59,7 @@ public class MayinTarlasi{
     return false;
   }
 
-  public boolean oyunuKazandımı(){
+  public boolean oyunuKazandimi(){
     return false;
   }
 }
