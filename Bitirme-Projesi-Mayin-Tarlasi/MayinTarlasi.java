@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class MayinTarlasi{
   private String[][] tarla;
@@ -11,18 +12,23 @@ public class MayinTarlasi{
     this.scanner = new Scanner(System.in);
 
     this.tarla = new String[row][column];
+    for(String[] r : this.tarla){
+      Arrays.fill(r, "-");
+    }
     this.mayinSayisi = row * column / 4;
 
     initializeTarla();
+
+    System.out.println("Mayinlar : ");
     mayinTarlasiniEkranaYazdir(true);
   }
 
   public void run(){
     System.out.println("Mayin Tarlasi Oyununa Hosgeldiniz !");
     while(!oyunBittimi()){
-      mayinTarlasiniEkranaYazdir(false);
       int[] satirSutun = getInput();
       chechkCoordinate(satirSutun[0], satirSutun[1]);
+      mayinTarlasiniEkranaYazdir(false);
     }
 
     if(oyunuKazandimi()){
@@ -52,7 +58,12 @@ public class MayinTarlasi{
   }
 
   public void mayinTarlasiniEkranaYazdir(boolean mayinlariGoster){
-
+    for(int i = 0; i < this.tarla.length; i++){
+      for(int j = 0; j < this.tarla[i].length; j++){
+        System.out.print(tarla[i][j] + "  ");
+      }
+      System.out.println();
+    }
   }
 
   public boolean oyunBittimi(){
