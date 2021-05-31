@@ -6,8 +6,6 @@ public class MayinTarlasi{
   private int mayinSayisi;
   private Scanner scanner;
 
-  // Burada ki metotları private yap
-
   public MayinTarlasi(int row, int column){
     this.scanner = new Scanner(System.in);
 
@@ -37,7 +35,7 @@ public class MayinTarlasi{
     }
   }
 
-  public int[] getInput(){
+  private int[] getInput(){
     int[] satirSutun = new int[2];
     
     System.out.print("Satir Giriniz : ");
@@ -49,15 +47,15 @@ public class MayinTarlasi{
     return satirSutun;
   }
 
-  public void initializeTarla(){
+  private void initializeTarla(){
 
   }
 
-  public boolean chechkCoordinate(int satir, int sutun){
+  private boolean chechkCoordinate(int satir, int sutun){
     return false;
   }
 
-  public void mayinTarlasiniEkranaYazdir(boolean mayinlariGoster){
+  private void mayinTarlasiniEkranaYazdir(boolean mayinlariGoster){
     for(int i = 0; i < this.tarla.length; i++){
       for(int j = 0; j < this.tarla[i].length; j++){
         System.out.print(tarla[i][j] + "  ");
@@ -66,11 +64,11 @@ public class MayinTarlasi{
     }
   }
 
-  public boolean oyunBittimi(){
+  private boolean oyunBittimi(){
     return false;
   }
 
-  public boolean oyunuKazandimi(){
+  private boolean oyunuKazandimi(){
     return false;
   }
 }
