@@ -1,24 +1,23 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.Random;
 
 public class MayinTarlasi{
   private String[][] tarla;
   private int mayinSayisi;
   private Scanner scanner;
+  private Random random;
 
   public MayinTarlasi(int row, int column){
     this.scanner = new Scanner(System.in);
+    this.random = new Random();
 
-    this.tarla = new String[row][column];
-    for(String[] r : this.tarla){
-      Arrays.fill(r, "-");
-    }
-    this.mayinSayisi = row * column / 4;
+    initializeTarla(row, column);
 
-    initializeTarla();
-
-    System.out.println("Mayinlar : ");
+    // Mayinlarin konumunu ekrana yazdir.
+    System.out.println("Mayinlarin Konumu : ");
     mayinTarlasiniEkranaYazdir(true);
+    System.out.println("==================================");
   }
 
   public void run(){
@@ -47,8 +46,51 @@ public class MayinTarlasi{
     return satirSutun;
   }
 
-  private void initializeTarla(){
+  private void initializeTarla(int row, int column){
+    this.tarla = new String[row][column];
+    for(String[] r : this.tarla){
+      Arrays.fill(r, "-");
+    }
+    this.mayinSayisi = row * column / 4;
+    int[][] mayinSpots = pickRandomMayinSpot();
 
+    for(int[] t: mayinSpots){
+      this.tarla[t[0]][t[1]] = "*";
+    }
+  }
+
+  private int[][] pickRandomMayinSpot(){
+    String[] mayinKoordinatlari = new String[mayinSayisi];
+
+    int count = 0;
+    while(count < mayinKoordinatlari.length){
+      String randomString = "";
+      String random1 = String.valueOf(this.random.nextInt(this.mayinSayisi+1));
+      String random2 = String.valueOf(this.random.nextInt(this.mayinSayisi+1));
+      randomString += random1 + " " + random2;
+      
+      boolean containsRandom = Arrays.stream(mayinKoordinatlari).anyMatch(randomString::equals);
+      if(containsRandom){
+        continue;
+      }else{
+        mayinKoordinatlari[count++] = randomString;
+      }
+    }
+
+    //System.out.println(Arrays.toString(mayinKoordinatlari));
+
+    // Koordinatlari stringden int e çevir;
+    int[][] randomKoordinatlar = new int[this.mayinSayisi][2];
+    for(int i = 0; i < this.mayinSayisi; i++){
+      String[] currentKoord = mayinKoordinatlari[i].split(" ");
+      for(int j = 0; j < 2; j++){
+        randomKoordinatlar[i][j] = Integer.parseInt(currentKoord[j]);
+      }
+    }
+
+    //System.out.println(Arrays.deepToString(randomKoordinatlar));
+
+    return randomKoordinatlar;
   }
 
   private boolean chechkCoordinate(int satir, int sutun){
