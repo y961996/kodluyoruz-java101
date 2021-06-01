@@ -41,6 +41,8 @@ public class MayinTarlasi{
       else gameOver = true;
 
       mayinTarlasiniEkranaYazdir(false);
+
+      if(oyunuKazandimi()) break;
     }
 
     if(oyunuKazandimi()){
