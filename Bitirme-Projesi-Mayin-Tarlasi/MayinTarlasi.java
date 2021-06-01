@@ -94,6 +94,7 @@ public class MayinTarlasi{
   }
 
   private boolean chechkCoordinate(int satir, int sutun){
+    if(!this.tarla[satir][sutun].equals("*")) return false;
     return false;
   }
 
@@ -101,7 +102,7 @@ public class MayinTarlasi{
     for(int i = 0; i < this.tarla.length; i++){
       for(int j = 0; j < this.tarla[i].length; j++){
         if(!mayinlariGoster){
-          if(tarla[i][j] == "*"){
+          if(tarla[i][j].equals("*")){
             System.out.print("-" + "  ");
           }else{
             System.out.print(tarla[i][j] + "  ");
