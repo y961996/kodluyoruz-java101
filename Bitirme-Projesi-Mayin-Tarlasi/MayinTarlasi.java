@@ -100,7 +100,15 @@ public class MayinTarlasi{
   private void mayinTarlasiniEkranaYazdir(boolean mayinlariGoster){
     for(int i = 0; i < this.tarla.length; i++){
       for(int j = 0; j < this.tarla[i].length; j++){
-        System.out.print(tarla[i][j] + "  ");
+        if(!mayinlariGoster){
+          if(tarla[i][j] == "*"){
+            System.out.print("-" + "  ");
+          }else{
+            System.out.print(tarla[i][j] + "  ");
+          }
+        }else{
+          System.out.print(tarla[i][j] + "  ");
+        }
       }
       System.out.println();
     }
