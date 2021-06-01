@@ -65,7 +65,28 @@ public class MayinTarlasi{
   }
 
   private void handleOpenCell(int satir, int sutun){
+    if(this.tarla[satir][sutun].equals("*")){
+      System.out.println("Bir hata olustu lutfen oyun yapimcisina basvurun!");
+      return;
+    }
 
+    if(!this.tarla[satir][sutun].equals("-")) return;
+
+    int mayinCount = 0;
+    
+    int realSatirStart = satir - 1 < 0 ? 0 : satir - 1;
+    int realSutunStart = sutun - 1 < 0 ? 0 : sutun - 1;
+    int realSatirEnd = satir + 1 >= this.row ? satir : satir + 1;
+    int realSutunEnd = sutun + 1 >= this.column ? sutun : sutun + 1;
+
+    for(int i = realSatirStart; i <= realSatirEnd; i++){
+      for(int j = realSutunStart; j <= realSutunEnd; j++){
+        if(this.tarla[i][j].equals("*")) mayinCount++;
+      }
+    }
+
+    //System.out.println(mayinCount);
+    this.tarla[satir][sutun] = mayinCount + "";
   }
 
   private void initializeTarla(){
