@@ -5,6 +5,8 @@ import java.util.Random;
 public class MayinTarlasi{
   private String[][] tarla;
   private int mayinSayisi;
+  private int row;
+  private int column;
   private boolean gameOver;
   private Scanner scanner;
   private Random random;
@@ -13,9 +15,11 @@ public class MayinTarlasi{
     this.scanner = new Scanner(System.in);
     this.random = new Random();
 
+    this.row = row;
+    this.column = column;
     this.gameOver = false;
 
-    initializeTarla(row, column);
+    initializeTarla();
 
     // Mayinlarin konumunu ekrana yazdir.
     System.out.println("Mayinlarin Konumu : ");
@@ -27,7 +31,15 @@ public class MayinTarlasi{
     System.out.println("Mayin Tarlasi Oyununa Hosgeldiniz !");
     while(!gameOver){
       int[] satirSutun = getInput();
-      chechkCoordinate(satirSutun[0], satirSutun[1]);
+      
+      if(satirSutun[0] < 0 || satirSutun[0] >= this.row || satirSutun[1] < 0 || satirSutun[1] >= this.column){
+        System.out.println("Yanlis koordinat !");
+        continue;
+      }
+      
+      if(!chechkCoordinate(satirSutun[0], satirSutun[1])) handleOpenCell(satirSutun[0], satirSutun[1]);
+      else gameOver = true;
+
       mayinTarlasiniEkranaYazdir(false);
     }
 
@@ -52,12 +64,16 @@ public class MayinTarlasi{
     return satirSutun;
   }
 
-  private void initializeTarla(int row, int column){
-    this.tarla = new String[row][column];
+  private void handleOpenCell(int satir, int sutun){
+
+  }
+
+  private void initializeTarla(){
+    this.tarla = new String[this.row][this.column];
     for(String[] r : this.tarla){
       Arrays.fill(r, "-");
     }
-    this.mayinSayisi = row * column / 4;
+    this.mayinSayisi = this.row * this.column / 4;
     int[][] mayinSpots = pickRandomMayinSpot();
 
     for(int[] t: mayinSpots){
@@ -66,13 +82,13 @@ public class MayinTarlasi{
   }
 
   private int[][] pickRandomMayinSpot(){
-    String[] mayinKoordinatlari = new String[mayinSayisi];
+    String[] mayinKoordinatlari = new String[this.mayinSayisi];
 
     int count = 0;
     while(count < mayinKoordinatlari.length){
       String randomString = "";
-      String random1 = String.valueOf(this.random.nextInt(this.mayinSayisi+1));
-      String random2 = String.valueOf(this.random.nextInt(this.mayinSayisi+1));
+      String random1 = String.valueOf(this.random.nextInt(this.row));
+      String random2 = String.valueOf(this.random.nextInt(this.column));
       randomString += random1 + " " + random2;
       
       boolean containsRandom = Arrays.stream(mayinKoordinatlari).anyMatch(randomString::equals);
@@ -101,7 +117,7 @@ public class MayinTarlasi{
 
   private boolean chechkCoordinate(int satir, int sutun){
     if(!this.tarla[satir][sutun].equals("*")) return false;
-    return false;
+    return true;
   }
 
   private void mayinTarlasiniEkranaYazdir(boolean mayinlariGoster){
