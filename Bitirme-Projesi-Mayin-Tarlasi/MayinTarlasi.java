@@ -5,12 +5,15 @@ import java.util.Random;
 public class MayinTarlasi{
   private String[][] tarla;
   private int mayinSayisi;
+  private boolean gameOver;
   private Scanner scanner;
   private Random random;
 
   public MayinTarlasi(int row, int column){
     this.scanner = new Scanner(System.in);
     this.random = new Random();
+
+    this.gameOver = false;
 
     initializeTarla(row, column);
 
@@ -22,7 +25,7 @@ public class MayinTarlasi{
 
   public void run(){
     System.out.println("Mayin Tarlasi Oyununa Hosgeldiniz !");
-    while(!oyunBittimi()){
+    while(!gameOver){
       int[] satirSutun = getInput();
       chechkCoordinate(satirSutun[0], satirSutun[1]);
       mayinTarlasiniEkranaYazdir(false);
@@ -30,6 +33,9 @@ public class MayinTarlasi{
 
     if(oyunuKazandimi()){
       System.out.println("Tebrikler, oyunu kazandiniz.");
+      mayinTarlasiniEkranaYazdir(true);
+    }else{
+      System.out.println("Game OVER :(");
       mayinTarlasiniEkranaYazdir(true);
     }
   }
@@ -115,11 +121,12 @@ public class MayinTarlasi{
     }
   }
 
-  private boolean oyunBittimi(){
-    return false;
-  }
-
   private boolean oyunuKazandimi(){
-    return false;
+    for(int i = 0; i < this.tarla.length; i++){
+      for(int j = 0; j < this.tarla[i].length; j++){
+        if(this.tarla[i][j].equals("-")) return false;
+      }
+    }
+    return true;
   }
 }
